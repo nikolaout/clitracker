@@ -165,6 +165,7 @@ class WiretapState:
     def set_catch_all_mode(self, enabled: bool) -> bool:
         with self._config_lock:
             self._catch_all_mode = bool(enabled)
+            self._save_allowed_hosts_locked()
             return self._catch_all_mode
 
     def set_allowed_hosts(self, hosts: list[str]) -> list[str]:
@@ -196,6 +197,9 @@ class WiretapState:
         tracked_paths = payload.get("tracked_paths")
         if isinstance(tracked_paths, list):
             self._tracked_paths = self._normalize_paths([str(item) for item in tracked_paths])
+        catch_all_mode = payload.get("catch_all_mode")
+        if isinstance(catch_all_mode, bool):
+            self._catch_all_mode = catch_all_mode
 
     def _save_allowed_hosts_locked(self) -> None:
         if self._config_path is None:
@@ -203,6 +207,7 @@ class WiretapState:
         payload = {
             "allowed_hosts": list(self._allowed_hosts),
             "tracked_paths": list(self._tracked_paths),
+            "catch_all_mode": self._catch_all_mode,
         }
         try:
             self._config_path.parent.mkdir(parents=True, exist_ok=True)
