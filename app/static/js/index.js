@@ -126,6 +126,7 @@
     collapseSettingsBtn.textContent = isCollapsed ? ">" : "<";
     collapseSettingsBtn.title = isCollapsed ? "Expand settings" : "Collapse settings";
     collapseSettingsBtn.setAttribute("aria-label", isCollapsed ? "Expand settings" : "Collapse settings");
+    collapseSettingsBtn.setAttribute("aria-expanded", isCollapsed ? "false" : "true");
   };
 
   const syncSettingsPanel = () => {
@@ -632,6 +633,7 @@
     jsonModeBtn.classList.toggle("active", jsonMode);
     jsonModeBtn.textContent = jsonMode ? "JSON On" : "JSON";
     jsonModeBtn.title = jsonMode ? "Showing raw JSON without UI transformations" : "Show raw JSON without UI transformations";
+    jsonModeBtn.setAttribute("aria-pressed", jsonMode ? "true" : "false");
   }
 
   function renderList() {
