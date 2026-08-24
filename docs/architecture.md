@@ -75,7 +75,7 @@ Notable UI behaviors:
 
 ## Persistence
 
-Only allowlist / tracked paths are persisted:
+Allowlist, tracked paths, and catch-all mode are persisted:
 
 - stored in `app/data/allowed_hosts.json`
 
